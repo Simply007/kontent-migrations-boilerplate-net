@@ -1,9 +1,5 @@
 {
-  "DEV": {
-    "projectId": "your-project-id",
-    "apiKey": "your-management-API-key"
-  },
-  "PROD": {
+  "TARGET": {
     "projectId": "your-project-id",
     "apiKey": "your-management-API-key"
   }
