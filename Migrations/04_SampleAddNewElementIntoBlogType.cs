@@ -33,7 +33,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                                 Condition = Models.Types.LimitType.AtMost,
                                 Value = 1
                             },
-                            AllowedTypes = new[] { ObjectIdentifier.ById(authorType.Id) }
+                            AllowedTypes = new[] { Reference.ById(authorType.Id) }
                         }
                     },
                     // Tried to split as it is in boilerplate but does not work

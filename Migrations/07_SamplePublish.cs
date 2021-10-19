@@ -26,28 +26,28 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
 
             var authorVariants = items.Where(x => x.Type.Id == authorType.Id).Select(async item =>
             {
-                var languageVariants = await client.ListContentItemVariantsAsync(Reference.ById(item.Id));
+                var languageVariants = await client.ListLanguageVariantsByItemAsync(Reference.ById(item.Id));
                 return languageVariants.FirstOrDefault();
             }).Select(x => x.Result);
             foreach (var authorVariant in authorVariants)
             {
-                await client.PublishContentItemVariant(
-                    new ContentItemVariantIdentifier(
-                        Reference.ById(authorVariant.Item.Id),
+                await client.PublishLanguageVariant(
+                    new LanguageVariantIdentifier(
+                        Reference.ById(authorVariant.Item.Id.Value),
                          Reference.ByCodename(Constants.LANGUAGE_CODENAME))
                     );
             }
 
             var blogVariants = items.Where(x => x.Type.Id == blogType.Id).Select(async item =>
             {
-                var languageVariants = await client.ListContentItemVariantsAsync(Reference.ById(item.Id));
+                var languageVariants = await client.ListLanguageVariantsByItemAsync(Reference.ById(item.Id));
                 return languageVariants.FirstOrDefault();
             }).Select(x => x.Result);
             foreach (var blogvariant in blogVariants)
             {
-                await client.PublishContentItemVariant(
-                    new ContentItemVariantIdentifier(
-                        Reference.ById(blogvariant.Item.Id),
+                await client.PublishLanguageVariant(
+                    new LanguageVariantIdentifier(
+                        Reference.ById(blogvariant.Item.Id.Value),
                          Reference.ByCodename(Constants.LANGUAGE_CODENAME))
                     );
             }
