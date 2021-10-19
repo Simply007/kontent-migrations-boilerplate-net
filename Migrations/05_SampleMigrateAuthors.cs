@@ -26,7 +26,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
             var items = await client.ListContentItemsAsync();
             var blogItemVariants = items.Where(x => x.Type.Id == blogType.Id).Select(async item =>
             {
-                var languageVariants = await client.ListContentItemVariantsAsync(Reference.ById(item.Id));
+                var languageVariants = await client.ListLanguageVariantsByItemAsync(Reference.ById(item.Id));
                 return languageVariants.FirstOrDefault();
             }).Select(x => x.Result);
 
@@ -47,15 +47,15 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                     });
 
                     await client.UpsertContentItemVariantAsync(
-                        new ContentItemVariantIdentifier(Reference.ById(contentItem.Id), Reference.ByCodename(Constants.LANGUAGE_CODENAME)),
-                        new ContentItemVariantUpsertModel
+                        new LanguageVariantIdentifier(Reference.ById(contentItem.Id), Reference.ByCodename(Constants.LANGUAGE_CODENAME)),
+                        new LanguageVariantModel
                         {
                             Elements = new[]
                             {
                                 new TextElement
                                 {
                                     // TODO reference identifier (to use codename?)
-                                    Element = ObjectIdentifier.ById(authorType.Elements.First(x => x.Codename == Constants.AUTHOR_NAME_ELEMENT_CODENAME).Id),
+                                    Element = Reference.ById(authorType.Elements.First(x => x.Codename == Constants.AUTHOR_NAME_ELEMENT_CODENAME).Id),
                                     Value = author
                                 }
                             }
@@ -67,15 +67,15 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
 
                 // Update blog item variant
                 await client.UpsertContentItemVariantAsync(
-                    new ContentItemVariantIdentifier(Reference.ById(blogItemVariant.Item.Id), Reference.ByCodename(Constants.LANGUAGE_CODENAME)),
-                    new ContentItemVariantUpsertModel
+                    new LanguageVariantIdentifier(Reference.ById(blogItemVariant.Item.Id.Value), Reference.ByCodename(Constants.LANGUAGE_CODENAME)),
+                    new LanguageVariantModel
                     {
                         Elements = new[]
                         {
                                 new LinkedItemsElement
                                 {
                                     // TODO reference
-                                    Element = ObjectIdentifier.ById(blogType.Elements.First(x => x.Codename == Constants.BLOG_LINKED_AUTHOR_ELEMENT_CODENAME).Id),
+                                    Element = Reference.ById(blogType.Elements.First(x => x.Codename == Constants.BLOG_LINKED_AUTHOR_ELEMENT_CODENAME).Id),
                                     Value = new[] { Reference.ById(existingAuthors[author]) }
                                 }
                         }
