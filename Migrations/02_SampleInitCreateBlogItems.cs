@@ -5,10 +5,11 @@ using Kentico.Kontent.Management.Models.LanguageVariants;
 using Kentico.Kontent.Management.Models.LanguageVariants.Elements;
 using System.Linq;
 using Kentico.Kontent.Boilerplate.Sample.Boilerplate.Migrations;
+using Kentico.Kontent.Management.Models.Types.Elements;
 
 namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
 {
-    public class SampleInitCreateBlogItem : IMigrationModule
+    public class SampleInitCreateBlogItems : IMigrationModule
     {
         public int Order => 2;
 
@@ -16,7 +17,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
         {
             var blogType = await client.GetContentTypeAsync(Reference.ByCodename(Constants.BLOG_TYPE_CODENAME));
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 9; i++)
             {
 
                 var contentItem = await client.CreateContentItemAsync(new ContentItemCreateModel()
@@ -31,7 +32,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                 new LanguageVariantIdentifier(Reference.ById(contentItem.Id), Reference.ByCodename(Constants.LANGUAGE_CODENAME)),
                 new LanguageVariantModel
                 {
-                    Elements = new[]
+                    Elements = new BaseElement[]
                     {
                         new TextElement
                         {
@@ -48,6 +49,24 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                         {
                             Element = Reference.ById(blogType.Elements.First(x => x.Codename == "text").Id),
                             Value = $"Coffee is a brewed drink prepared from roasted coffee beans, the seeds of berries from certain Coffee species. no. {i}"
+                        },
+                        new MultipleChoiceElement
+                        {
+                            Element = Reference.ById(blogType.Elements.First(x => x.Codename == "is_featured").Id),
+                            Value =
+                            (i%2 == 0)
+                            ? new[]
+                            {
+                                Reference.ById(
+                                    blogType.Elements
+                                        .OfType<MultipleChoiceElementMetadataModel>()
+                                        .First(x => x.Codename  == "is_featured")
+                                        .Options
+                                        .First(options => options.Codename == "yes")
+                                        .Id
+                                    )
+                            }
+                            : new Reference[]{}
                         }
                     }
                 });

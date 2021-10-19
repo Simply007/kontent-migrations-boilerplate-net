@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Kentico.Kontent.Boilerplate.Sample.Boilerplate.Migrations;
 using Kentico.Kontent.Management.Models.Types;
@@ -16,7 +17,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
             {
                 Name = "Blog",
                 Codename = Constants.BLOG_TYPE_CODENAME,
-                Elements = new[] {
+                Elements = new List<ElementMetadataBase> {
                     new TextElementMetadataModel()
                     {
                         Name= "Title",
@@ -31,6 +32,20 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                     {
                         Name= "Text",
                         Codename = "text",
+                    },
+                    new MultipleChoiceElementMetadataModel
+                    {
+                        Name = "Is featured",
+                        Codename = "is_featured",
+                        IsRequired = false,
+                        Mode = MultipleChoiceMode.Single,
+                        Options = new[] {
+                            new MultipleChoiceOptionModel
+                            {
+                                Name = "Yes",
+                                Codename = "yes"
+                            }
+                        }
                     }
                 }
             });
