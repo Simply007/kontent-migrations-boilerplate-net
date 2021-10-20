@@ -1,10 +1,5 @@
 using System.Threading.Tasks;
-using Kentico.Kontent.Management.Models.Items;
-using Kentico.Kontent.Management.Sample.Boilerplate;
 using Kentico.Kontent.Management.Models.Shared;
-using Kentico.Kontent.Management.Models.LanguageVariants;
-using Kentico.Kontent.Management.Models.LanguageVariants.Elements;
-using System.Linq;
 using Kentico.Kontent.Management.Models.Types.Elements;
 using Kentico.Kontent.Management.Models.Types;
 using Kentico.Kontent.Boilerplate.Sample.Boilerplate.Migrations;
@@ -17,6 +12,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
 
         public async Task RunAsync(ManagementClient client)
         {
+            var contentGroupExternalId = "personal_details";
             var response = await client.CreateContentTypeAsync(new ContentTypeCreateModel
             {
                 Name = "Author",
@@ -26,12 +22,22 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                     {
                         Name = "Name",
                         Codename = "name",
+                        ContentGroup = Reference.ByExternalId(contentGroupExternalId)
                         
                     },
                     new TextElementMetadataModel
                     {
                         Name = "Twitter handle",
                         Codename = "twitter_handle",
+                        ContentGroup = Reference.ByExternalId(contentGroupExternalId)
+                    }
+                },
+                ContentGroups = new[]
+                {
+                    new ContentGroupModel
+                    {
+                        Name = "Personal details",
+                        ExternalId = contentGroupExternalId
                     }
                 }
             });
