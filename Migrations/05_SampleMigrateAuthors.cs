@@ -46,7 +46,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                         Type = Reference.ByCodename(Constants.AUTHOR_TYPE_CODENAME),
                     });
 
-                    await client.UpsertContentItemVariantAsync(
+                    await client.UpsertLanguageVariantAsync(
                         new LanguageVariantIdentifier(Reference.ById(contentItem.Id), Reference.ByCodename(Constants.LANGUAGE_CODENAME)),
                         new LanguageVariantModel
                         {
@@ -66,7 +66,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                 }
 
                 // Update blog item variant
-                await client.UpsertContentItemVariantAsync(
+                await client.UpsertLanguageVariantAsync(
                     new LanguageVariantIdentifier(Reference.ById(blogItemVariant.Item.Id.Value), Reference.ByCodename(Constants.LANGUAGE_CODENAME)),
                     new LanguageVariantModel
                     {

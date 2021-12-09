@@ -28,7 +28,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                 System.Console.Out.WriteLine($"Contenty item with ${contentItem.Id} was created");
 
 
-                var contentItemVariant = await client.UpsertContentItemVariantAsync(
+                var contentItemVariant = await client.UpsertLanguageVariantAsync(
                 new LanguageVariantIdentifier(Reference.ById(contentItem.Id), Reference.ByCodename(Constants.LANGUAGE_CODENAME)),
                 new LanguageVariantModel
                 {
