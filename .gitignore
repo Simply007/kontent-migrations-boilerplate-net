@@ -418,3 +418,4 @@ FodyWeavers.xsd
 # ---------------------------------Custom ignores content----------------------------------------
 
 .environments.json
+.status.json

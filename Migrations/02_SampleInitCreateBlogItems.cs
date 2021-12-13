@@ -6,6 +6,7 @@ using Kentico.Kontent.Management.Models.LanguageVariants.Elements;
 using System.Linq;
 using Kentico.Kontent.Boilerplate.Sample.Boilerplate.Migrations;
 using Kentico.Kontent.Management.Models.Types.Elements;
+using Kentico.Kontent.Management.Modules.ModelBuilders;
 
 namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
 {
@@ -32,7 +33,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                 new LanguageVariantIdentifier(Reference.ById(contentItem.Id), Reference.ByCodename(Constants.LANGUAGE_CODENAME)),
                 new LanguageVariantModel
                 {
-                    Elements = new BaseElement[]
+                    Elements = ElementBuilder.GetElementsAsDynamic(new BaseElement[]
                     {
                         new TextElement
                         {
@@ -68,7 +69,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                             }
                             : new Reference[]{}
                         }
-                    }
+                    })
                 });
                 System.Console.Out.WriteLine($"Contenty item variant with ${contentItemVariant.Item.Id} was created");
             }

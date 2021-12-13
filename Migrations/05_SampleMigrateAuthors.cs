@@ -8,6 +8,7 @@ using Kentico.Kontent.Management.Models.LanguageVariants;
 using Kentico.Kontent.Management.Models.LanguageVariants.Elements;
 using Kentico.Kontent.Management.Models.Shared;
 using Kentico.Kontent.Management.Models.Types.Patch;
+using Kentico.Kontent.Management.Modules.ModelBuilders;
 
 namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
 {
@@ -50,7 +51,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                         new LanguageVariantIdentifier(Reference.ById(contentItem.Id), Reference.ByCodename(Constants.LANGUAGE_CODENAME)),
                         new LanguageVariantModel
                         {
-                            Elements = new[]
+                            Elements = ElementBuilder.GetElementsAsDynamic(new BaseElement[]
                             {
                                 new TextElement
                                 {
@@ -58,7 +59,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                                     Element = Reference.ById(authorType.Elements.First(x => x.Codename == Constants.AUTHOR_NAME_ELEMENT_CODENAME).Id),
                                     Value = author
                                 }
-                            }
+                            })
                         }
                     );
 
@@ -70,7 +71,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                     new LanguageVariantIdentifier(Reference.ById(blogItemVariant.Item.Id.Value), Reference.ByCodename(Constants.LANGUAGE_CODENAME)),
                     new LanguageVariantModel
                     {
-                        Elements = new[]
+                        Elements = ElementBuilder.GetElementsAsDynamic(new BaseElement[]
                         {
                                 new LinkedItemsElement
                                 {
@@ -78,7 +79,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                                     Element = Reference.ById(blogType.Elements.First(x => x.Codename == Constants.BLOG_LINKED_AUTHOR_ELEMENT_CODENAME).Id),
                                     Value = new[] { Reference.ById(existingAuthors[author]) }
                                 }
-                        }
+                        })
                     }
                 );
 

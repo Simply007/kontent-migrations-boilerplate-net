@@ -36,15 +36,6 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                             AllowedTypes = new[] { Reference.ById(authorType.Id) }
                         }
                     },
-                    // Tried to split as it is in boilerplate but does not work
-                    // new ContentTypeAddIntoPatchModel()
-                    // {
-                    //     Path = $"/elements/codename:{Constants.BLOG_LINKED_AUTHOR_ELEMENT_CODENAME}/allowed_content_types",
-                    //     Value =  new LinkedItemsElementMetadataModel
-                    //     {
-                    //         AllowedTypes = new[] { ObjectIdentifier.ById(authorType.Id) }
-                    //     }
-                    // },
                     // TODO - add guidelines to old text element about deprecation
                 });
 
