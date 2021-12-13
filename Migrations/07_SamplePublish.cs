@@ -20,16 +20,8 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
             var blogType = await client.GetContentTypeAsync(Reference.ByCodename(Constants.BLOG_TYPE_CODENAME));
             var authorType = await client.GetContentTypeAsync(Reference.ByCodename(Constants.AUTHOR_TYPE_CODENAME));
 
-            // TODO - missing listing by type endpoint https://docs.kontent.ai/reference/management-api-v2#operation/list-language-variants-by-type
-            var items = await client.ListContentItemsAsync();
-
-
-            var authorVariants = items.Where(x => x.Type.Id == authorType.Id).Select(async item =>
-            {
-                var languageVariants = await client.ListLanguageVariantsByItemAsync(Reference.ById(item.Id));
-                return languageVariants.FirstOrDefault();
-            }).Select(x => x.Result);
-            foreach (var authorVariant in authorVariants)
+            var authorLanguageVariants = await client.ListLanguageVariantsByTypeAsync(Reference.ById(authorType.Id));
+            foreach (var authorVariant in authorLanguageVariants)
             {
                 await client.PublishLanguageVariant(
                     new LanguageVariantIdentifier(
@@ -38,12 +30,8 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                     );
             }
 
-            var blogVariants = items.Where(x => x.Type.Id == blogType.Id).Select(async item =>
-            {
-                var languageVariants = await client.ListLanguageVariantsByItemAsync(Reference.ById(item.Id));
-                return languageVariants.FirstOrDefault();
-            }).Select(x => x.Result);
-            foreach (var blogvariant in blogVariants)
+            var blogLanguageVariants = await client.ListLanguageVariantsByTypeAsync(Reference.ById(blogType.Id));
+            foreach (var blogvariant in blogLanguageVariants)
             {
                 await client.PublishLanguageVariant(
                     new LanguageVariantIdentifier(

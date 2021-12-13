@@ -23,13 +23,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
 
             var blogAuthorElementId = blogType.Elements.First(x => x.Codename == "author").Id;
 
-            // TODO - missing listing by type endpoint https://docs.kontent.ai/reference/management-api-v2#operation/list-language-variants-by-type
-            var items = await client.ListContentItemsAsync();
-            var blogItemVariants = items.Where(x => x.Type.Id == blogType.Id).Select(async item =>
-            {
-                var languageVariants = await client.ListLanguageVariantsByItemAsync(Reference.ById(item.Id));
-                return languageVariants.FirstOrDefault();
-            }).Select(x => x.Result);
+            var blogItemVariants = await client.ListLanguageVariantsByTypeAsync(Reference.ById(blogType.Id));
 
             var existingAuthors = new Dictionary<string, Guid>();
 
@@ -75,7 +69,6 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                         {
                                 new LinkedItemsElement
                                 {
-                                    // TODO reference
                                     Element = Reference.ById(blogType.Elements.First(x => x.Codename == Constants.BLOG_LINKED_AUTHOR_ELEMENT_CODENAME).Id),
                                     Value = new[] { Reference.ById(existingAuthors[author]) }
                                 }

@@ -18,7 +18,6 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
 
             var modifiedContentType = await client.ModifyContentTypeAsync(
                 Reference.ById(blogType.Id),
-                // TODO - strongly typed patch? - ElementMetadataBase[]
                 new[]
                 {
                     new ContentTypeAddIntoPatchModel()
