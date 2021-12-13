@@ -50,7 +50,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                 }
             });
 
-            System.Console.Out.WriteLine($"Contenty type with ${response.Id} was created");
+            System.Console.Out.WriteLine($"Contenty type with {response.Id} was created");
         }
     }
 }

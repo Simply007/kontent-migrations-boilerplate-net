@@ -8,6 +8,7 @@ using Kentico.Kontent.Management.Models.LanguageVariants;
 using Kentico.Kontent.Management.Models.LanguageVariants.Elements;
 using Kentico.Kontent.Management.Models.Shared;
 using Kentico.Kontent.Management.Models.Types.Patch;
+using Kentico.Kontent.Management.Modules.ModelBuilders;
 
 namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
 {
@@ -22,13 +23,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
 
             var blogAuthorElementId = blogType.Elements.First(x => x.Codename == "author").Id;
 
-            // TODO - missing listing by type endpoint https://docs.kontent.ai/reference/management-api-v2#operation/list-language-variants-by-type
-            var items = await client.ListContentItemsAsync();
-            var blogItemVariants = items.Where(x => x.Type.Id == blogType.Id).Select(async item =>
-            {
-                var languageVariants = await client.ListLanguageVariantsByItemAsync(Reference.ById(item.Id));
-                return languageVariants.FirstOrDefault();
-            }).Select(x => x.Result);
+            var blogItemVariants = await client.ListLanguageVariantsByTypeAsync(Reference.ById(blogType.Id));
 
             var existingAuthors = new Dictionary<string, Guid>();
 
@@ -48,9 +43,9 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
 
                     await client.UpsertLanguageVariantAsync(
                         new LanguageVariantIdentifier(Reference.ById(contentItem.Id), Reference.ByCodename(Constants.LANGUAGE_CODENAME)),
-                        new LanguageVariantModel
+                        new LanguageVariantUpsertModel
                         {
-                            Elements = new[]
+                            Elements = ElementBuilder.GetElementsAsDynamic(new BaseElement[]
                             {
                                 new TextElement
                                 {
@@ -58,7 +53,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                                     Element = Reference.ById(authorType.Elements.First(x => x.Codename == Constants.AUTHOR_NAME_ELEMENT_CODENAME).Id),
                                     Value = author
                                 }
-                            }
+                            })
                         }
                     );
 
@@ -68,17 +63,16 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                 // Update blog item variant
                 await client.UpsertLanguageVariantAsync(
                     new LanguageVariantIdentifier(Reference.ById(blogItemVariant.Item.Id.Value), Reference.ByCodename(Constants.LANGUAGE_CODENAME)),
-                    new LanguageVariantModel
+                    new LanguageVariantUpsertModel
                     {
-                        Elements = new[]
+                        Elements = ElementBuilder.GetElementsAsDynamic(new BaseElement[]
                         {
                                 new LinkedItemsElement
                                 {
-                                    // TODO reference
                                     Element = Reference.ById(blogType.Elements.First(x => x.Codename == Constants.BLOG_LINKED_AUTHOR_ELEMENT_CODENAME).Id),
                                     Value = new[] { Reference.ById(existingAuthors[author]) }
                                 }
-                        }
+                        })
                     }
                 );
 

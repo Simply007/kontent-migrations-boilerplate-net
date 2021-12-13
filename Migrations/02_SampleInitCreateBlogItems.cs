@@ -6,6 +6,7 @@ using Kentico.Kontent.Management.Models.LanguageVariants.Elements;
 using System.Linq;
 using Kentico.Kontent.Boilerplate.Sample.Boilerplate.Migrations;
 using Kentico.Kontent.Management.Models.Types.Elements;
+using Kentico.Kontent.Management.Modules.ModelBuilders;
 
 namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
 {
@@ -25,52 +26,52 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                     Type = Reference.ByCodename(Constants.BLOG_TYPE_CODENAME),
                     Name = $"About coffee no {i}",
                 });
-                System.Console.Out.WriteLine($"Contenty item with ${contentItem.Id} was created");
+                System.Console.Out.WriteLine($"Contenty item with {contentItem.Id} was created");
 
 
                 var contentItemVariant = await client.UpsertLanguageVariantAsync(
-                new LanguageVariantIdentifier(Reference.ById(contentItem.Id), Reference.ByCodename(Constants.LANGUAGE_CODENAME)),
-                new LanguageVariantModel
-                {
-                    Elements = new BaseElement[]
+                    new LanguageVariantIdentifier(Reference.ById(contentItem.Id), Reference.ByCodename(Constants.LANGUAGE_CODENAME)),
+                    new LanguageVariantUpsertModel
                     {
-                        new TextElement
+                        Elements = ElementBuilder.GetElementsAsDynamic(new BaseElement[]
                         {
-                            // TODO reference
-                            Element = Reference.ById(blogType.Elements.First(x => x.Codename == "title").Id),
-                            Value = $"Coffee no. {i}"
-                        },
-                        new TextElement
-                        {
-                            Element = Reference.ById(blogType.Elements.First(x => x.Codename == "author").Id),
-                            Value = i%2 == 0 ? "John Doe" : "Jane Doe"
-                        },
-                        new TextElement
-                        {
-                            Element = Reference.ById(blogType.Elements.First(x => x.Codename == "text").Id),
-                            Value = $"Coffee is a brewed drink prepared from roasted coffee beans, the seeds of berries from certain Coffee species. no. {i}"
-                        },
-                        new MultipleChoiceElement
-                        {
-                            Element = Reference.ById(blogType.Elements.First(x => x.Codename == "is_featured").Id),
-                            Value =
-                            (i%2 == 0)
-                            ? new[]
+                            new TextElement
                             {
-                                Reference.ById(
-                                    blogType.Elements
-                                        .OfType<MultipleChoiceElementMetadataModel>()
-                                        .First(x => x.Codename  == "is_featured")
-                                        .Options
-                                        .First(options => options.Codename == "yes")
-                                        .Id
-                                    )
+                                // TODO reference
+                                Element = Reference.ById(blogType.Elements.First(x => x.Codename == "title").Id),
+                                Value = $"Coffee no. {i}"
+                            },
+                            new TextElement
+                            {
+                                Element = Reference.ById(blogType.Elements.First(x => x.Codename == "author").Id),
+                                Value = i%2 == 0 ? "John Doe" : "Jane Doe"
+                            },
+                            new TextElement
+                            {
+                                Element = Reference.ById(blogType.Elements.First(x => x.Codename == "text").Id),
+                                Value = $"Coffee is a brewed drink prepared from roasted coffee beans, the seeds of berries from certain Coffee species. no. {i}"
+                            },
+                            new MultipleChoiceElement
+                            {
+                                Element = Reference.ById(blogType.Elements.First(x => x.Codename == "is_featured").Id),
+                                Value =
+                                (i%2 == 0)
+                                ? new[]
+                                {
+                                    Reference.ById(
+                                        blogType.Elements
+                                            .OfType<MultipleChoiceElementMetadataModel>()
+                                            .First(x => x.Codename  == "is_featured")
+                                            .Options
+                                            .First(options => options.Codename == "yes")
+                                            .Id
+                                        )
+                                }
+                                : new Reference[]{}
                             }
-                            : new Reference[]{}
-                        }
-                    }
-                });
-                System.Console.Out.WriteLine($"Contenty item variant with ${contentItemVariant.Item.Id} was created");
+                        })
+                    });
+                System.Console.Out.WriteLine($"Contenty item variant with {contentItemVariant.Item.Id} was created");
             }
 
         }
