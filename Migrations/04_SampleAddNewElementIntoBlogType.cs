@@ -38,7 +38,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                     // TODO - add guidelines to old text element about deprecation
                 });
 
-            System.Console.Out.WriteLine($"Contenty type with ${modifiedContentType.Id} was updated");
+            System.Console.Out.WriteLine($"Contenty type with {modifiedContentType.Id} was updated");
         }
     }
 }

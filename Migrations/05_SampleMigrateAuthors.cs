@@ -43,7 +43,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
 
                     await client.UpsertLanguageVariantAsync(
                         new LanguageVariantIdentifier(Reference.ById(contentItem.Id), Reference.ByCodename(Constants.LANGUAGE_CODENAME)),
-                        new LanguageVariantModel
+                        new LanguageVariantUpsertModel
                         {
                             Elements = ElementBuilder.GetElementsAsDynamic(new BaseElement[]
                             {
@@ -63,7 +63,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
                 // Update blog item variant
                 await client.UpsertLanguageVariantAsync(
                     new LanguageVariantIdentifier(Reference.ById(blogItemVariant.Item.Id.Value), Reference.ByCodename(Constants.LANGUAGE_CODENAME)),
-                    new LanguageVariantModel
+                    new LanguageVariantUpsertModel
                     {
                         Elements = ElementBuilder.GetElementsAsDynamic(new BaseElement[]
                         {
