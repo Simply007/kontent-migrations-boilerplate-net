@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Kentico.Kontent.Management.Sample.Boilerplate
+namespace Kontent.Ai.Management.Sample.Boilerplate
 {
     public interface IMigrationModule
     {

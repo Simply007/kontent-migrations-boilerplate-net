@@ -2,9 +2,10 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Kontent.Ai.Management.Configuration;
 using Newtonsoft.Json.Linq;
 
-namespace Kentico.Kontent.Management.Sample.Boilerplate
+namespace Kontent.Ai.Management.Sample.Boilerplate
 {
     class Program
     {

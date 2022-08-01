@@ -1,15 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Kentico.Kontent.Boilerplate.Sample.Boilerplate.Migrations;
-using Kentico.Kontent.Management.Models.Items;
-using Kentico.Kontent.Management.Models.LanguageVariants;
-using Kentico.Kontent.Management.Models.LanguageVariants.Elements;
-using Kentico.Kontent.Management.Models.Shared;
-using Kentico.Kontent.Management.Models.Types.Patch;
+using Kontent.Ai.Boilerplate.Sample.Boilerplate.Migrations;
+using Kontent.Ai.Management.Models.LanguageVariants;
+using Kontent.Ai.Management.Models.Shared;
 
-namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
+namespace Kontent.Ai.Management.Sample.Boilerplate.Migrations
 {
     class SamplePublish : IMigrationModule
     {
@@ -23,7 +17,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
             var authorLanguageVariants = await client.ListLanguageVariantsByTypeAsync(Reference.ById(authorType.Id));
             foreach (var authorVariant in authorLanguageVariants)
             {
-                await client.PublishLanguageVariant(
+                await client.PublishLanguageVariantAsync(
                     new LanguageVariantIdentifier(
                         Reference.ById(authorVariant.Item.Id.Value),
                          Reference.ByCodename(Constants.LANGUAGE_CODENAME))
@@ -33,7 +27,7 @@ namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
             var blogLanguageVariants = await client.ListLanguageVariantsByTypeAsync(Reference.ById(blogType.Id));
             foreach (var blogvariant in blogLanguageVariants)
             {
-                await client.PublishLanguageVariant(
+                await client.PublishLanguageVariantAsync(
                     new LanguageVariantIdentifier(
                         Reference.ById(blogvariant.Item.Id.Value),
                          Reference.ByCodename(Constants.LANGUAGE_CODENAME))

@@ -1,4 +1,4 @@
-namespace Kentico.Kontent.Boilerplate.Sample.Boilerplate.Migrations
+namespace Kontent.Ai.Boilerplate.Sample.Boilerplate.Migrations
 {
     public static class Constants
     {
