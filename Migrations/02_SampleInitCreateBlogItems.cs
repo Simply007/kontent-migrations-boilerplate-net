@@ -1,14 +1,14 @@
 using System.Threading.Tasks;
-using Kentico.Kontent.Management.Models.Items;
-using Kentico.Kontent.Management.Models.Shared;
-using Kentico.Kontent.Management.Models.LanguageVariants;
-using Kentico.Kontent.Management.Models.LanguageVariants.Elements;
+using Kontent.Ai.Management.Models.Items;
+using Kontent.Ai.Management.Models.Shared;
+using Kontent.Ai.Management.Models.LanguageVariants;
+using Kontent.Ai.Management.Models.LanguageVariants.Elements;
 using System.Linq;
-using Kentico.Kontent.Boilerplate.Sample.Boilerplate.Migrations;
-using Kentico.Kontent.Management.Models.Types.Elements;
-using Kentico.Kontent.Management.Modules.ModelBuilders;
+using Kontent.Ai.Boilerplate.Sample.Boilerplate.Migrations;
+using Kontent.Ai.Management.Models.Types.Elements;
+using Kontent.Ai.Management.Modules.ModelBuilders;
 
-namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
+namespace Kontent.Ai.Management.Sample.Boilerplate.Migrations
 {
     public class SampleInitCreateBlogItems : IMigrationModule
     {

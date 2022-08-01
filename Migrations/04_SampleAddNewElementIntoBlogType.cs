@@ -1,11 +1,11 @@
 using System.Threading.Tasks;
-using Kentico.Kontent.Boilerplate.Sample.Boilerplate.Migrations;
-using Kentico.Kontent.Management.Models.Shared;
-using Kentico.Kontent.Management.Models.Types;
-using Kentico.Kontent.Management.Models.Types.Elements;
-using Kentico.Kontent.Management.Models.Types.Patch;
+using Kontent.Ai.Boilerplate.Sample.Boilerplate.Migrations;
+using Kontent.Ai.Management.Models.Shared;
+using Kontent.Ai.Management.Models.Types;
+using Kontent.Ai.Management.Models.Types.Elements;
+using Kontent.Ai.Management.Models.Types.Patch;
 
-namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
+namespace Kontent.Ai.Management.Sample.Boilerplate.Migrations
 {
     class SampleAddNewElementIntoBlogType : IMigrationModule
     {

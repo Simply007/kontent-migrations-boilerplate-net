@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Kentico.Kontent.Boilerplate.Sample.Boilerplate.Migrations;
-using Kentico.Kontent.Management.Models.Types;
-using Kentico.Kontent.Management.Models.Types.Elements;
-using Kentico.Kontent.Management.Sample.Boilerplate;
+using Kontent.Ai.Boilerplate.Sample.Boilerplate.Migrations;
+using Kontent.Ai.Management.Models.Types;
+using Kontent.Ai.Management.Models.Types.Elements;
+using Kontent.Ai.Management.Sample.Boilerplate;
 
-namespace Kentico.Kontent.Management.Sample.Boilerplate.Migrations
+namespace Kontent.Ai.Management.Sample.Boilerplate.Migrations
 {
     public class SampleInitCreateBlogType : IMigrationModule
     {
